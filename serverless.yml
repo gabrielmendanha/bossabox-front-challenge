@@ -1,0 +1,15 @@
+org: gabrielmendanha
+app: bossabox-front
+
+plugins:
+  - serverless-finch
+
+service: bossabox-front
+provider:
+  name: aws
+  region: sa-east-1
+
+custom:
+  client:
+    bucketName: bossabox-front
+    distributionFolder: build
