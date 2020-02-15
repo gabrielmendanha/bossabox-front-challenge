@@ -1,6 +1,6 @@
 import React from "react";
 import { Title, Description, Tag } from "./index";
-import AddButton from "../buttons/Button";
+import RemoveButton from "../../components/RemoveButton";
 
 function Card(props) {
   const { title, link, tags, description } = props.tool;
@@ -9,7 +9,7 @@ function Card(props) {
     <div className="mt-3">
       <div className="d-flex justify-content-between">
         <Title title={title} link={link} />
-        <AddButton type="remove" />
+        <RemoveButton toolName={title} />
       </div>
 
       <div>

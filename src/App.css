@@ -1,3 +1,7 @@
+.flex-column {
+  flex-direction: column;
+}
+
 .flex-fixed {
   flex-basis: 60%;
   flex-grow: 0;

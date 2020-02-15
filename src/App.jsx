@@ -1,10 +1,11 @@
 import React from "react";
 import { Header, Subheader } from "./header/index.js";
-import { Search, SearchTags, SearchLabel } from "./search/";
+import { Search } from "./search/";
 import Card from "./tools/card/Card";
-import AddButton from "./tools/buttons/Button";
+import AddButton from "./components/AddButton";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "@pathofdev/react-tag-input/build/index.css";
 
 const tools = [
   {
@@ -50,14 +51,12 @@ function App() {
         <div className="d-flex justify-content-between">
           <div>
             <Search />
-            <SearchTags />
-            <SearchLabel />
           </div>
-          <AddButton type="add" />
+          <AddButton />
         </div>
         <div>
           {tools.map((tool, index) => {
-            return <Card tool={tool} />;
+            return <Card key={tool.id} tool={tool} />;
           })}
         </div>
       </div>
