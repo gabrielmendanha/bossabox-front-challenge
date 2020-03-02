@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import DefaultModal from "../modals/DefaultModal";
+
+import DefaultModal from "../../components/modals/DefaultModal";
+import DefaultButton from "../../components/buttons/DefaultButton";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Modal, Button } from "react-bootstrap";
 
-function RemoveButton(props) {
+function RemoveTool(props) {
   const [show, setShow] = useState(false);
   const { toolName } = props;
 
@@ -41,15 +44,18 @@ function RemoveButton(props) {
 
   return (
     <>
-      <button onClick={() => setShow(true)}>
-        <i>
-          <FontAwesomeIcon icon={faTimes} />
-        </i>
-        {" remove"}
-      </button>
+      <DefaultButton
+        title=" remove"
+        handleClick={() => setShow(true)}
+        icon={
+          <i>
+            <FontAwesomeIcon icon={faTimes} />
+          </i>
+        }
+      />
       {modal}
     </>
   );
 }
 
-export default RemoveButton;
+export default RemoveTool;

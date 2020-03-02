@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import DefaultModal from "../modals/DefaultModal";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Modal, Button } from "react-bootstrap";
-import TextArea from "./TextArea";
-import Input from "./Input";
-import ReactTagInput from "@pathofdev/react-tag-input";
-import Label from "./Label";
+import { TextArea, Input, Label } from "../../components/fields";
 
-function AddButton() {
+import ReactTagInput from "@pathofdev/react-tag-input";
+import DefaultModal from "../../components/modals/DefaultModal";
+import DefaultButton from "../../components/buttons/DefaultButton";
+
+function AddTool() {
   const [show, setShow] = useState(false);
   const [tags, setTags] = useState([]);
 
@@ -59,15 +60,18 @@ function AddButton() {
 
   return (
     <>
-      <button onClick={() => setShow(true)}>
-        <i>
-          <FontAwesomeIcon icon={faPlus} />
-        </i>
-        {" add"}
-      </button>
+      <DefaultButton
+        title=" add"
+        handleClick={() => setShow(true)}
+        icon={
+          <i>
+            <FontAwesomeIcon icon={faPlus} />
+          </i>
+        }
+      />
       {modal}
     </>
   );
 }
 
-export default AddButton;
+export default AddTool;

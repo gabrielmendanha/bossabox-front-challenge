@@ -1,4 +1,5 @@
-import { get, post, put, destroy } from "../config/api";
+import { get, post, destroy } from "../config/api";
+
 export const Tools = {
   index: () => get("tools").json(),
   single: id => get(`users/${id}`),

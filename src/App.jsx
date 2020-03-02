@@ -1,49 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { Header, Subheader } from "./header/index.js";
-import { Tools } from "./services/Tool.jsx";
-import { Search } from "./search/";
+import React from "react";
+import { Search } from "./features/search";
 
-import AddButton from "./components/AddButton";
-import Card from "./tools/card/Card";
+import AddTool from "./features/add/AddTool";
+import ToolList from "./features/list/List.jsx";
 
 import "@pathofdev/react-tag-input/build/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-function errorHandling() {}
-
 function App() {
-  const [tools, setTools] = useState();
-
-  useEffect(() => {
-    async function getTools() {
-      try {
-        const tools = await Tools.index();
-        setTools(tools);
-      } catch {}
-    }
-
-    getTools();
-  }, []);
-
   return (
     <div className="d-flex justify-content-center">
       <div className="flex-fixed">
         <div>
-          <Header />
-          <Subheader />
+          <h1>VUTTR</h1>
+          <h2>Very Useful Tools to Remember</h2>
         </div>
         <div className="d-flex justify-content-between">
           <div>
             <Search />
           </div>
-          <AddButton />
+          <AddTool />
         </div>
-        <div>
-          {tools?.map(tool => {
-            return <Card key={tool.id} tool={tool} />;
-          })}
-        </div>
+        <ToolList />
       </div>
     </div>
   );
