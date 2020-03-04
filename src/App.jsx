@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Search } from "./features/search";
 
 import AddTool from "./features/add/AddTool";
 import ToolList from "./features/list/List.jsx";
+import { Tools } from "./services/Tool";
 
 import "@pathofdev/react-tag-input/build/index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 function App() {
+  const [tools, setTools] = useState([]);
+
+  useEffect(() => {
+    async function getTools() {
+      try {
+        const tools = await Tools.index();
+        setTools(tools);
+      } catch {}
+    }
+
+    getTools();
+  }, []);
+
+  const toolAdded = newTool => {
+    setTools([...tools, newTool]);
+  };
+
   return (
     <div className="d-flex justify-content-center">
       <div className="flex-fixed">
@@ -20,9 +38,9 @@ function App() {
           <div>
             <Search />
           </div>
-          <AddTool />
+          <AddTool onSave={toolAdded} />
         </div>
-        <ToolList />
+        <ToolList tools={tools} />
       </div>
     </div>
   );

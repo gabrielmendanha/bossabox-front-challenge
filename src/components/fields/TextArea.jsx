@@ -1,7 +1,10 @@
 import React from "react";
 
 function TextArea(props) {
-  return <textarea name="" id="" cols="30" rows="10"></textarea>;
+  const { id, handleChange } = props;
+  return (
+    <textarea id={id} cols="30" rows="10" onChange={handleChange}></textarea>
+  );
 }
 
 export default TextArea;

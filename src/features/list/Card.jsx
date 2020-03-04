@@ -19,7 +19,7 @@ function Card(props) {
 
       <div>
         <div>
-          {tags.map((tag, index) => {
+          {tags?.map((tag, index) => {
             return (
               <span key={tag} className="pr-2">
                 <b>#{tag}</b>

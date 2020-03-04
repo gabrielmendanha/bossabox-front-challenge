@@ -5,6 +5,6 @@ export const Tools = {
   single: id => get(`users/${id}`),
   byQuery: query => get(`tools?q=${query}`),
   byTag: tags => get(`tools?tags_like=${tags}`),
-  create: params => post("tools", params),
+  create: params => post("tools", { json: params }).json(),
   remove: id => destroy(`tools/${id}`)
 };

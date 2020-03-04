@@ -1,20 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { Tools } from "../../services/Tool.jsx";
+import React from "react";
 import Card from "./Card";
 
-function ToolList() {
-  const [tools, setTools] = useState();
-
-  useEffect(() => {
-    async function getTools() {
-      try {
-        const tools = await Tools.index();
-        setTools(tools);
-      } catch {}
-    }
-
-    getTools();
-  }, []);
+function ToolList(props) {
+  const { tools } = props;
 
   return (
     <div>
