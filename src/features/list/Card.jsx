@@ -2,7 +2,8 @@ import React from "react";
 import RemoveTool from "../remove/RemoveTool";
 
 function Card(props) {
-  const { title, link, tags, description } = props.tool;
+  const { onRemove } = props;
+  const { title, link, tags, description, id } = props.tool;
 
   return (
     <div className="mt-3">
@@ -10,7 +11,7 @@ function Card(props) {
         <h5>
           <a href={link}>{title}</a>
         </h5>
-        <RemoveTool toolName={title} />
+        <RemoveTool name={title} id={id} onRemove={onRemove} />
       </div>
 
       <div>

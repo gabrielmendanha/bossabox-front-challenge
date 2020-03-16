@@ -12,14 +12,14 @@ import "./App.css";
 function App() {
   const [tools, setTools] = useState([]);
 
-  useEffect(() => {
-    async function getTools() {
-      try {
-        const tools = await Tools.index();
-        setTools(tools);
-      } catch {}
-    }
+  async function getTools() {
+    try {
+      const tools = await Tools.index();
+      setTools(tools);
+    } catch {}
+  }
 
+  useEffect(() => {
     getTools();
   }, []);
 
@@ -40,7 +40,7 @@ function App() {
           </div>
           <AddTool onSave={toolAdded} />
         </div>
-        <ToolList tools={tools} />
+        <ToolList tools={tools} onRemove={getTools} />
       </div>
     </div>
   );

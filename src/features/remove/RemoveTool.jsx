@@ -6,17 +6,24 @@ import DefaultButton from "../../components/buttons/DefaultButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Modal, Button } from "react-bootstrap";
+import { Tools } from "../../services/Tool";
 
 function RemoveTool(props) {
   const [show, setShow] = useState(false);
-  const { toolName } = props;
+  const { name, id, onRemove } = props;
+
+  const handleSubmit = async () => {
+    await Tools.remove(id);
+    onRemove();
+    setShow(false);
+  };
 
   const footer = (
     <>
       <Button onClick={() => setShow(false)} variant="danger">
         Cancel
       </Button>
-      <Button onClick={() => setShow(false)} variant="primary">
+      <Button onClick={() => handleSubmit()} variant="primary">
         Yes, remove
       </Button>
     </>
@@ -27,7 +34,7 @@ function RemoveTool(props) {
   const body = (
     <>
       <p>
-        Are you sure tou want to remove <strong>{toolName}</strong>?
+        Are you sure tou want to remove <strong>{name}</strong>?
       </p>
     </>
   );
