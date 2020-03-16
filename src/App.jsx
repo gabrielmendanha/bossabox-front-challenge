@@ -27,6 +27,20 @@ function App() {
     setTools([...tools, newTool]);
   };
 
+  const searchTool = async (term, searchByTag) => {
+    try {
+      let tools;
+      if (term === undefined) return;
+      console.log(term, searchByTag);
+      if (!searchByTag) {
+        tools = await Tools.byQuery(term);
+      } else {
+        tools = await Tools.byTag(term);
+      }
+      setTools(tools);
+    } catch {}
+  };
+
   return (
     <div className="d-flex justify-content-center">
       <div className="flex-fixed">
@@ -36,7 +50,7 @@ function App() {
         </div>
         <div className="d-flex justify-content-between">
           <div>
-            <Search />
+            <Search onSearch={searchTool} />
           </div>
           <AddTool onSave={toolAdded} />
         </div>
