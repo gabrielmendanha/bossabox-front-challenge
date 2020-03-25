@@ -27,18 +27,17 @@ function App() {
     setTools([...tools, newTool]);
   };
 
-  const searchTool = async (term, searchByTag) => {
+  const searchTool = async (term, searchByTag, signal) => {
     try {
       let tools;
       if (term === undefined) return;
-      console.log(term, searchByTag);
-      if (!searchByTag) {
-        tools = await Tools.byQuery(term);
+      if (searchByTag) {
+        tools = await Tools.byTag(term, signal);
       } else {
-        tools = await Tools.byTag(term);
+        tools = await Tools.byQuery(term, signal);
       }
       setTools(tools);
-    } catch {}
+    } catch (error) {}
   };
 
   return (

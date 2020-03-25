@@ -6,8 +6,15 @@ function Search(props) {
   const [searchTags, setSearchTags] = useState(false);
   const [searchTerm, setSearchTerm] = useState(undefined);
 
+  const controller = new AbortController();
+  const { signal } = controller;
+
   useEffect(() => {
-    onSearch(searchTerm, searchTags);
+    onSearch(searchTerm, searchTags, signal);
+
+    return () => {
+      controller.abort();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm, searchTags]);
 
