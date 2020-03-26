@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Label, Input } from "../../components/fields";
+import debounce from "lodash.debounce";
 
 function Search(props) {
   const { onSearch } = props;
@@ -9,8 +10,17 @@ function Search(props) {
   const controller = new AbortController();
   const { signal } = controller;
 
+  const debouncedSearch = useCallback(
+    debounce(
+      (searchTerm, searchTags, signal) =>
+        onSearch(searchTerm, searchTags, signal),
+      300
+    ),
+    []
+  );
+
   useEffect(() => {
-    onSearch(searchTerm, searchTags, signal);
+    debouncedSearch(searchTerm, searchTags, signal);
 
     return () => {
       controller.abort();
