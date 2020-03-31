@@ -20,7 +20,7 @@ function AddTool(props) {
     description: "",
     tags: []
   });
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, formState } = useForm();
 
   const REQUIRED_FIELD_MESSAGE = "Required field";
   const URL_VALIDATOR_REGEX = /^(ftp|http|https):\/\/[^ "]+$/;
@@ -37,7 +37,11 @@ function AddTool(props) {
   };
 
   const footer = (
-    <Button onClick={handleSubmit(onSubmit)} variant="primary">
+    <Button
+      onClick={handleSubmit(onSubmit)}
+      variant="primary"
+      disabled={!formState.isValid}
+    >
       Add tool
     </Button>
   );
