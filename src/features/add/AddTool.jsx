@@ -20,7 +20,9 @@ function AddTool(props) {
     description: "",
     tags: []
   });
-  const { register, handleSubmit, errors, formState } = useForm();
+  const { register, handleSubmit, errors, formState } = useForm({
+    mode: "onChange"
+  });
 
   const REQUIRED_FIELD_MESSAGE = "Required field";
   const URL_VALIDATOR_REGEX = /^(ftp|http|https):\/\/[^ "]+$/;
