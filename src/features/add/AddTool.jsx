@@ -5,6 +5,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Modal, Button } from "react-bootstrap";
 import { TextArea, Input, Label } from "../../components/fields";
 import { Tools } from "../../services/Tool";
+import { useForm } from "react-hook-form";
 
 import ReactTagInput from "@pathofdev/react-tag-input";
 import DefaultModal from "../../components/modals/DefaultModal";
@@ -19,8 +20,13 @@ function AddTool(props) {
     description: "",
     tags: []
   });
+  const { register, handleSubmit, errors } = useForm();
 
-  const handleSubmit = async () => {
+  const REQUIRED_FIELD_MESSAGE = "Required field";
+  const URL_VALIDATOR_REGEX = /^(ftp|http|https):\/\/[^ "]+$/;
+  const INVALID_URL_MESSAGE = "Invalid URL";
+
+  const onSubmit = async () => {
     const tool = await Tools.create(toolState);
     onSave(tool);
     setShow(false);
@@ -31,7 +37,7 @@ function AddTool(props) {
   };
 
   const footer = (
-    <Button onClick={() => handleSubmit()} variant="primary">
+    <Button onClick={handleSubmit(onSubmit)} variant="primary">
       Add tool
     </Button>
   );
@@ -40,29 +46,50 @@ function AddTool(props) {
 
   const body = (
     <>
-      <div className="d-flex flex-column mt-2">
-        <Label label="Tool Name" />
-        <Input type="text" id="title" handleChange={handleChange} />
-      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="d-flex flex-column mt-2">
+          <Label label="Tool Name" />
+          <Input
+            type="text"
+            id="title"
+            errors={errors}
+            register={register}
+            registerParams={{ required: REQUIRED_FIELD_MESSAGE }}
+            handleChange={handleChange}
+          />
+        </div>
 
-      <div className="d-flex flex-column mt-2">
-        <Label label="Tool Link" />
-        <Input type="text" id="link" handleChange={handleChange} />
-      </div>
+        <div className="d-flex flex-column mt-2">
+          <Label label="Tool Link" />
+          <Input
+            type="text"
+            id="link"
+            errors={errors}
+            register={register}
+            registerParams={{
+              pattern: {
+                value: URL_VALIDATOR_REGEX,
+                message: INVALID_URL_MESSAGE
+              }
+            }}
+            handleChange={handleChange}
+          />
+        </div>
 
-      <div className="d-flex flex-column mt-2">
-        <Label label="Tool Description" />
-        <TextArea id="description" handleChange={handleChange} />
-      </div>
+        <div className="d-flex flex-column mt-2">
+          <Label label="Tool Description" />
+          <TextArea id="description" handleChange={handleChange} />
+        </div>
 
-      <div className="d-flex flex-column mt-2">
-        <Label label="Tags" />
-        <ReactTagInput
-          removeOnBackspace={true}
-          tags={toolState.tags}
-          onChange={newTags => setToolState({ ...toolState, tags: newTags })}
-        />
-      </div>
+        <div className="d-flex flex-column mt-2">
+          <Label label="Tags" />
+          <ReactTagInput
+            removeOnBackspace={true}
+            tags={toolState.tags}
+            onChange={newTags => setToolState({ ...toolState, tags: newTags })}
+          />
+        </div>
+      </form>
     </>
   );
 
