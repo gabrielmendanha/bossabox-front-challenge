@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { TextArea, Input, Label } from "../../components/fields";
 import { Tools } from "../../services/Tool";
 import { useForm } from "react-hook-form";
 
+import styled from "styled-components";
+import addIcon from "../../assets/icons/add-icon.svg";
 import ReactTagInput from "@pathofdev/react-tag-input";
 import DefaultModal from "../../components/modals/DefaultModal";
-import DefaultButton from "../../components/buttons/DefaultButton";
+import ButtonPrimary from "../../components/buttons/ButtonPrimary";
+import ButtonSecondary from "../../components/buttons/ButtonSecondary.jsx";
+
+const Icon = styled.img`
+  height: 15px;
+`;
 
 function AddTool(props) {
   const { onSave } = props;
@@ -39,13 +44,11 @@ function AddTool(props) {
   };
 
   const footer = (
-    <Button
-      onClick={handleSubmit(onSubmit)}
-      variant="primary"
+    <ButtonPrimary
+      title="Add tool"
+      handleClick={handleSubmit(onSubmit)}
       disabled={!formState.isValid}
-    >
-      Add tool
-    </Button>
+    />
   );
 
   const header = <Modal.Title>Add new tool</Modal.Title>;
@@ -111,14 +114,10 @@ function AddTool(props) {
 
   return (
     <>
-      <DefaultButton
+      <ButtonSecondary
         title=" add"
         handleClick={() => setShow(true)}
-        icon={
-          <i>
-            <FontAwesomeIcon icon={faPlus} />
-          </i>
-        }
+        icon={<Icon alt="" src={addIcon} />}
       />
       {modal}
     </>

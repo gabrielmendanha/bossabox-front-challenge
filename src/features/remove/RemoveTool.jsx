@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 
+import styled from "styled-components";
 import DefaultModal from "../../components/modals/DefaultModal";
-import DefaultButton from "../../components/buttons/DefaultButton";
+import ButtonPrimary from "../../components/buttons/ButtonPrimary";
+import ButtonSecondary from "../../components/buttons/ButtonSecondary";
+import deleteIcon from "../../assets/icons/delete-icon.svg";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import { Tools } from "../../services/Tool";
+import { SecondaryDangerTheme } from "../../constants/_buttons";
+
+const Icon = styled.img`
+  height: 15px;
+`;
 
 function RemoveTool(props) {
   const [show, setShow] = useState(false);
@@ -20,12 +26,16 @@ function RemoveTool(props) {
 
   const footer = (
     <>
-      <Button onClick={() => setShow(false)} variant="danger">
-        Cancel
-      </Button>
-      <Button onClick={() => handleSubmit()} variant="primary">
-        Yes, remove
-      </Button>
+      <ButtonSecondary
+        tabindex="0"
+        title="Cancel"
+        handleClick={() => setShow(false)}
+      />
+      <ButtonPrimary
+        tabindex="0"
+        title="Yes, remove"
+        handleClick={() => handleSubmit()}
+      />
     </>
   );
 
@@ -51,14 +61,11 @@ function RemoveTool(props) {
 
   return (
     <>
-      <DefaultButton
+      <ButtonSecondary
+        theme={SecondaryDangerTheme}
         title=" remove"
         handleClick={() => setShow(true)}
-        icon={
-          <i>
-            <FontAwesomeIcon icon={faTimes} />
-          </i>
-        }
+        icon={<Icon alt="" src={deleteIcon} />}
       />
       {modal}
     </>
