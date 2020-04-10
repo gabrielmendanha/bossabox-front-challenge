@@ -16,12 +16,21 @@ const Icon = styled.img`
 
 function RemoveTool(props) {
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const { name, id, onRemove } = props;
 
   const handleSubmit = async () => {
-    await Tools.remove(id);
-    onRemove();
-    setShow(false);
+    try {
+      setLoading(true);
+      await Tools.remove(id);
+      onRemove();
+      setShow(false);
+      // TODO success notification
+    } catch {
+      // TODO error notification
+    } finally {
+      setLoading(false);
+    }
   };
 
   const footer = (
@@ -34,6 +43,7 @@ function RemoveTool(props) {
       <ButtonPrimary
         tabindex="0"
         title="Yes, remove"
+        loading={loading}
         handleClick={() => handleSubmit()}
       />
     </>

@@ -19,14 +19,15 @@ const Icon = styled.img`
 function AddTool(props) {
   const { onSave } = props;
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [toolState, setToolState] = useState({
     title: "",
     link: "",
     description: "",
-    tags: []
+    tags: [],
   });
   const { register, handleSubmit, errors, formState } = useForm({
-    mode: "onChange"
+    mode: "onChange",
   });
 
   const REQUIRED_FIELD_MESSAGE = "Required field";
@@ -34,18 +35,28 @@ function AddTool(props) {
   const INVALID_URL_MESSAGE = "Invalid URL";
 
   const onSubmit = async () => {
-    const tool = await Tools.create(toolState);
-    onSave(tool);
-    setShow(false);
+    setLoading(true);
+    try {
+      const tool = await Tools.create(toolState);
+      onSave(tool);
+      setShow(false);
+      // TODO success notification
+    } catch (error) {
+      // TODO error notification
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setToolState({ ...toolState, [event.target.id]: event.target.value });
   };
 
   const footer = (
     <ButtonPrimary
       title="Add tool"
+      loading={loading}
       handleClick={handleSubmit(onSubmit)}
       disabled={!formState.isValid}
     />
@@ -78,8 +89,8 @@ function AddTool(props) {
             registerParams={{
               pattern: {
                 value: URL_VALIDATOR_REGEX,
-                message: INVALID_URL_MESSAGE
-              }
+                message: INVALID_URL_MESSAGE,
+              },
             }}
             handleChange={handleChange}
           />
@@ -95,7 +106,9 @@ function AddTool(props) {
           <ReactTagInput
             removeOnBackspace={true}
             tags={toolState.tags}
-            onChange={newTags => setToolState({ ...toolState, tags: newTags })}
+            onChange={(newTags) =>
+              setToolState({ ...toolState, tags: newTags })
+            }
           />
         </div>
       </form>
