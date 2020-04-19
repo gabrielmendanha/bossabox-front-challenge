@@ -7,10 +7,10 @@ import { useForm } from "react-hook-form";
 
 import styled from "styled-components";
 import addIcon from "../../assets/icons/add-icon.svg";
-import ReactTagInput from "@pathofdev/react-tag-input";
 import DefaultModal from "../../components/modals/DefaultModal";
 import ButtonPrimary from "../../components/buttons/ButtonPrimary";
 import ButtonSecondary from "../../components/buttons/ButtonSecondary.jsx";
+import TagInput from "../../components/fields/TagInput";
 
 const Icon = styled.img`
   height: 15px;
@@ -46,6 +46,7 @@ function AddTool(props) {
       console.log(error);
     } finally {
       setLoading(false);
+      setToolState({ tags: [] });
     }
   };
 
@@ -103,10 +104,9 @@ function AddTool(props) {
 
         <div className="d-flex flex-column mt-2">
           <Label label="Tags" />
-          <ReactTagInput
-            removeOnBackspace={true}
+          <TagInput
             tags={toolState.tags}
-            onChange={(newTags) =>
+            handleChange={(newTags) =>
               setToolState({ ...toolState, tags: newTags })
             }
           />
@@ -117,7 +117,10 @@ function AddTool(props) {
 
   const modal = (
     <DefaultModal
-      onHide={() => setShow(false)}
+      onHide={() => {
+        setShow(false);
+        setToolState({ tags: [] });
+      }}
       show={show}
       header={header}
       body={body}

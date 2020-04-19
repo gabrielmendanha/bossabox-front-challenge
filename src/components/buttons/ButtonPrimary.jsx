@@ -2,13 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import { PrimaryTheme } from "../../constants/_buttons";
 import { Spinner } from "react-bootstrap";
+import * as Color from "../../constants/_colors";
 
 const Button = styled.button`
   min-width: 174px;
   height: 50px;
   border-radius: 5px;
   font-size: 18px;
-  color: #ffffff;
+  border: none;
+  color: ${Color.White};
 
   background: ${(props) => props.theme.background} 0% 0% no-repeat padding-box;
   &:hover {

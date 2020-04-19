@@ -1,15 +1,27 @@
 import React from "react";
 import RemoveTool from "../remove/RemoveTool";
+import styled from "styled-components";
+import * as Color from "../../constants/_colors";
+
+const Div = styled.div`
+  padding: 20px;
+  min-width: auto;
+  height: auto;
+  background: ${Color.White} 0% 0% no-repeat padding-box;
+  box-shadow: 0px 10px 10px #0000000d;
+  border: 1px solid #ebeaed;
+  margin-top: 1rem;
+`;
 
 function Card(props) {
   const { onRemove } = props;
   const { title, link, tags, description, id } = props.tool;
 
   return (
-    <div className="mt-3">
+    <Div>
       <div className="d-flex justify-content-between">
         <h5>
-          <a href={link}>{title}</a>
+          <a href={link || null}>{title}</a>
         </h5>
         <RemoveTool name={title} id={id} onRemove={onRemove} />
       </div>
@@ -29,7 +41,7 @@ function Card(props) {
           })}
         </div>
       </div>
-    </div>
+    </Div>
   );
 }
 

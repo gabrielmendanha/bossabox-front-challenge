@@ -1,9 +1,13 @@
+body {
+  background-color: #f8f8f9;
+}
+
 .flex-column {
   flex-direction: column;
 }
 
 .flex-fixed {
-  flex-basis: 60%;
+  flex-basis: 50%;
   flex-grow: 0;
   flex-shrink: 0;
 }
